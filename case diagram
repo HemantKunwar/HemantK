@@ -1,0 +1,62 @@
+graph TB
+    subgraph Actors
+        Admin[Admin]
+        FieldWorker[Field Worker]
+        ProjectManager[Project Manager]
+        Guest[Guest User]
+    end
+
+    subgraph Authentication
+        Login((Login))
+        Register((Register))
+        ManageUsers((Manage Users))
+    end
+
+    subgraph Project Management
+        CreateProject((Create Project))
+        UpdateProject((Update Project))
+        ViewProjects((View Projects))
+        ManageProjectData((Manage Project Data))
+    end
+
+    subgraph Data Management
+        EnterOfflineData((Enter Offline Data))
+        SyncData((Sync Data))
+        ExportData((Export Data))
+        GenerateReports((Generate Reports))
+    end
+
+    subgraph System Administration
+        ConfigureSystem((Configure System))
+        ManagePermissions((Manage Permissions))
+        AuditLogs((View Audit Logs))
+    end
+
+    %% Actor connections
+    Admin --> ManageUsers
+    Admin --> ConfigureSystem
+    Admin --> ManagePermissions
+    Admin --> AuditLogs
+
+    ProjectManager --> Login
+    ProjectManager --> CreateProject
+    ProjectManager --> UpdateProject
+    ProjectManager --> ViewProjects
+    ProjectManager --> ManageProjectData
+    ProjectManager --> GenerateReports
+
+    FieldWorker --> Login
+    FieldWorker --> EnterOfflineData
+    FieldWorker --> SyncData
+    FieldWorker --> ViewProjects
+
+    Guest --> Register
+    Guest --> Login
+    Guest --> ViewProjects
+
+    %% Relationships
+    ManageProjectData --> ExportData
+    SyncData --> ManageProjectData
+    CreateProject --> ManageProjectData
+    UpdateProject --> ManageProjectData
+
